@@ -23,9 +23,9 @@ hooks:
     - location: scripts/set_permissions.sh
       timeout: 300
       runas: root
-    - location: scripts/migrate.sh
-      timeout: 300
-      runas: www-data
+    # - location: scripts/migrate.sh
+    #   timeout: 300
+    #   runas: www-data
 
   ApplicationStart:
     - location: scripts/restart_nginx.sh

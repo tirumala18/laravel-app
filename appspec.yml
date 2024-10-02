@@ -19,6 +19,11 @@ hooks:
       timeout: 300
       runas: root
 
+  AfterInstall:
+    - location: scripts/set_permissions.sh
+      timeout: 60
+      runas: root
+      
   ApplicationStart:
     - location: scripts/setup.sh
       timeout: 300
@@ -26,11 +31,6 @@ hooks:
     # - location: scripts/migrate.sh
     #   timeout: 300
     #   runas: www-data
-
-  AfterInstall:
-    - location: scripts/set_permissions.sh
-      timeout: 60
-      runas: root
 
   ValidateService:
     - location: scripts/validate.sh

@@ -17,17 +17,20 @@ hooks:
   BeforeInstall:
     - location: scripts/install_dependencies.sh
       timeout: 300
-      runas: root
+      runas: www-data
 
   AfterInstall:
     - location: scripts/set_permissions.sh
+      timeout: 60
+      runas: root
+    - location: scripts/set_permissions_commands.sh 
       timeout: 60
       runas: root
       
   ApplicationStart:
     - location: scripts/setup.sh
       timeout: 300
-      runas: root
+      runas: www-data
     # - location: scripts/migrate.sh
     #   timeout: 300
     #   runas: www-data

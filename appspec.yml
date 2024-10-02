@@ -6,8 +6,8 @@ files:
 
 permissions:
   - object: /var/www/html/laravel
-    owner: ubuntu
-    group: ubuntu
+    owner: www-data
+    group: www-data
     mode: 755
     type:
       - directory
@@ -17,7 +17,7 @@ hooks:
   BeforeInstall:
     - location: scripts/install_dependencies.sh
       timeout: 300
-      runas: ubuntu
+      runas: www-data
 
   AfterInstall:
     - location: scripts/set_permissions.sh
@@ -28,7 +28,7 @@ hooks:
   ApplicationStart:
     - location: scripts/setup.sh
       timeout: 300
-      runas: ubuntu
+      runas: www-data
     # - location: scripts/migrate.sh
     #   timeout: 300
     #   runas: ubuntu
@@ -36,4 +36,4 @@ hooks:
   ValidateService:
     - location: scripts/validate.sh
       timeout: 30
-      runas: ubuntu
+      runas: www-data

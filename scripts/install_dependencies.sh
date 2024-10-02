@@ -1,5 +1,18 @@
 #!/bin/bash
 
+if ! [ -x "$(command -v php)" ]; then
+  echo "PHP is not installed. Installing PHP..."
+
+  # Update package manager and install PHP along with necessary extensions
+  sudo apt-get update
+  sudo apt-get install -y php-cli php-mbstring php-xml php-zip php-dom curl git unzip
+
+  echo "PHP installed successfully."
+else
+  echo "PHP is already installed."
+fi
+
+
 # Check if composer is installed
 if ! [ -x "$(command -v composer)" ]; then
   echo "Composer is not installed. Installing Composer..."
@@ -24,4 +37,10 @@ if ! [ -x "$(command -v composer)" ]; then
   echo "Composer installed successfully."
 else
   echo "Composer is already installed."
+fi
+
+if ! [ -x "$(command -v nginx)" ]; then
+  sudo apt update && sudo apt install -y nginx
+else
+  echo "Nginx is already installed."
 fi

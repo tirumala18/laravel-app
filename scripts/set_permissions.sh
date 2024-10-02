@@ -1,4 +1,3 @@
 #!/bin/bash
-sudo chown -R www-data:www-data /var/www/html/laravel
-sudo chmod -R 755 /var/www/html//laravel/storage
-sudo chmod -R 755 /var/www/html/laravel/bootstrap/cache
+sudo chown -R $USER:$USER /var/www/html/laravel
+chmod -R 755 /var/www/html/laravel

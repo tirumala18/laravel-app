@@ -28,7 +28,7 @@ hooks:
   ApplicationStart:
     - location: scripts/setup.sh
       timeout: 300
-      runas: www-data
+      runas: root
     # - location: scripts/migrate.sh
     #   timeout: 300
     #   runas: ubuntu
@@ -36,4 +36,4 @@ hooks:
   ValidateService:
     - location: scripts/validate.sh
       timeout: 30
-      runas: www-data
+      runas: root

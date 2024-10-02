@@ -2,10 +2,10 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/www/laravel
+    destination: /var/www/html/laravel
 
 permissions:
-  - object: /var/www/laravel
+  - object: /var/www/html/laravel
     owner: www-data
     group: www-data
     mode: 755
@@ -19,16 +19,16 @@ hooks:
       timeout: 300
       runas: root
 
-  AfterInstall:
-    - location: scripts/set_permissions.sh
+  ApplicationStart:
+    - location: scripts/setup.sh
       timeout: 300
       runas: root
     # - location: scripts/migrate.sh
     #   timeout: 300
     #   runas: www-data
 
-  ApplicationStart:
-    - location: scripts/restart_nginx.sh
+  AfterInstall:
+    - location: scripts/set_permissions.sh
       timeout: 60
       runas: root
 

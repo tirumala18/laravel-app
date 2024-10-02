@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+cd /var/www/html/laravel
+composer install --no-dev --optimize-autoloader
+
 # Variables
 LARAVEL_ROOT="/var/www/html/laravel"
 NGINX_CONF_SOURCE="./nginx.conf"          # Path to the nginx.conf file in the current directory

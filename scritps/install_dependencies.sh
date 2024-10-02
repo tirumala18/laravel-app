@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 
 # Check if composer is installed
 if ! [ -x "$(command -v composer)" ]; then
@@ -26,7 +25,3 @@ if ! [ -x "$(command -v composer)" ]; then
 else
   echo "Composer is already installed."
 fi
-
-
-cd /var/www/html
-composer install --no-dev --optimize-autoloader

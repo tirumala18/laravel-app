@@ -4,7 +4,7 @@
 ENV_FILE="/var/www/html/laravel/.env"
 
 # Temporary file to hold the updated .env content
-TEMP_ENV_FILE="/var/www/html/laravel/.env.example"
+TEMP_ENV_FILE="/var/www/html/laravel/env_example"
 
 # Backup the original .env file
 cp $ENV_FILE "$ENV_FILE.bak"

@@ -23,6 +23,9 @@ hooks:
     - location: scripts/set_permissions.sh
       timeout: 60
       runas: root
+    - location: scripts/set_var.sh
+      timeout: 60
+      runas: root
 
       
   ApplicationStart:

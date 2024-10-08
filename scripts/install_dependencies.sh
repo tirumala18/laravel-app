@@ -114,6 +114,8 @@ sudo nginx -t
 # Reload Nginx to apply the changes
 sudo systemctl reload nginx
 
+sudo unlink /etc/nginx/sites-enabled/default
+
 echo "Nginx setup complete."
 
 sudo systemctl restart nginx

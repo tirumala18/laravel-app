@@ -1,0 +1,36 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - echo "Install Phase - Nothing to do using latest Amazon Linux Docker Image for CodeBuild which has all AWS Tools - https://github.com/aws/aws-codebuild-docker-images/blob/master/al2/x86_64/standard/3.0/Dockerfile"
+      - pip3 install pymsteams
+  pre_build:
+      commands:
+        # Docker Image Tag with Date Time & Code Buiild Resolved Source Version
+        - TAG="$(date +%Y-%m-%d.%H.%M.%S).$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8).$STAGE"
+  build:
+    commands:
+      # Build Docker Image
+      - echo "Build started on `date`"
+      - echo "Building the Docker image..."
+  post_build:
+    commands:
+      # Push Docker Image to ECR Repository
+      - echo "Build completed on `date`"
+      - echo "Pushing the Docker image to ECR Repository"
+      # - docker push $REPOSITORY_URI:$TAG
+    finally:
+      - |
+        if [ $CODEBUILD_BUILD_SUCCEEDING -eq 0 ]; then
+          echo "import pymsteams" | tee -a python.py
+          echo "myTeamsMessage = pymsteams.connectorcard(r\"https://zertain.webhook.office.com/webhookb2/06d6091b-e0f4-4e00-97bb-e826474a77c3@bfea0d66-7869-4844-b196-e530d72f8652/IncomingWebhook/23d157dd4af94065be2f6cb38de0ebe3/3062a4ad-c2d7-4687-95d8-40da26534354\")" | tee -a python.py
+          echo "myTeamsMessage.text(r\"Build failed for Pipeline name: \\\"$CODEBUILD_INITIATOR\\\", Commit-message: \\\"$commit_message\\\", environment: \\\"$environment\\\", Branch: \\\"$branch_name\\\"\")" | tee -a python.py
+          echo "myTeamsMessage.send()" | tee -a python.py
+          python3 python.py
+        else
+          echo "import pymsteams" | tee -a python.py
+          echo "myTeamsMessage = pymsteams.connectorcard(r\"https://zertain.webhook.office.com/webhookb2/06d6091b-e0f4-4e00-97bb-e826474a77c3@bfea0d66-7869-4844-b196-e530d72f8652/IncomingWebhook/23d157dd4af94065be2f6cb38de0ebe3/3062a4ad-c2d7-4687-95d8-40da26534354\")" | tee -a python.py
+          echo "myTeamsMessage.text(r\"Build succeeded for Pipeline name: \\\"$CODEBUILD_INITIATOR\\\", Commit-message: \\\"$commit_message\\\", environment: \\\"$environment\\\", Branch: \\\"$branch_name\\\"\")" | tee -a python.py
+          echo "myTeamsMessage.send()" | tee -a python.py
+          python3 python.py
+        fi
